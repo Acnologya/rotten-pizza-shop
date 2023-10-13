@@ -8,8 +8,8 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 
-var mysql = require("mysql");
-var connection = mysql.createConnection({
+const mysql = require("mysql");
+const connection = mysql.createConnection({
   host: "db",
   user: "rps",
   password: "azerty",

@@ -1,5 +1,6 @@
 notes.md
 api/node_modules
 
-# AJOUTS
+#### AJOUTS ###
 .idea
+#.env (le .env ne devrait pas être ajouté dans le dépôt GitHub. Toutefois, pour les besoins de l'exercice, nous avons décidé de le laisser.)

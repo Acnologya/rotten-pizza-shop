@@ -58,9 +58,14 @@ router.get("/", function (req, res) {
       res.json(rows);
     });
   } else if (req.query.status) {
-    const query = `SELECT * FROM orders WHERE status = ${req.query.status}`;
+    const query = 'SELECT * FROM orders WHERE status = ?';
+    const status = req.query.status;
 
-    connection.query(query, (err, rows, fields) => {
+    connection.query(query, [status], (err, rows, fields) => {
+      if (err) {
+        // Gérer l'erreur, par exemple en renvoyant une réponse d'erreur
+        return res.status(500).json({ error: 'Une erreur s\'est produite lors de l\'exécution de la requête.' });
+      }
 
       res.json(rows);
     });
@@ -170,9 +175,14 @@ router.patch("/:id", function (req, res) {
 
 //READ ONE BY ID
 router.get("/:id", function (req, res) {
-  const query = `SELECT * FROM orders WHERE id =${req.params.id}`;
+  const query = 'SELECT * FROM orders WHERE id = ?';
+  const orderId = req.params.id;
 
-  connection.query(query, (err, rows, fields) => {
+  connection.query(query, [orderId], (err, rows, fields) => {
+    if (err) {
+      // Gérer l'erreur, par exemple en renvoyant une réponse d'erreur
+      return res.status(500).json({ error: 'Une erreur s\'est produite lors de l\'exécution de la requête.' });
+    }
 
     res.json(rows);
   });

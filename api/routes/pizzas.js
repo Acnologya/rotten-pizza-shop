@@ -26,11 +26,11 @@ router.post("/", function (req, res) {
   jwt.verify(token, process.env.JWT_KEY, function (err, decoded) {
     if (err) res.json("unauthorized");
     connection.query(
-      `INSERT INTO pizzas (name, price, available) VALUES ("${req.body.name}", ${req.body.price}, ${req.body.available})`,
-      (err, rows, fields) => {
+        `INSERT INTO pizzas (name, price, available) VALUES ("${req.body.name}", ${req.body.price}, ${req.body.available})`,
+        (err, rows, fields) => {
 
-        res.json("created");
-      }
+          res.json("created");
+        }
     );
   });
 });
@@ -54,11 +54,11 @@ router.get("/", function (req, res) {
     });
   } else {
     connection.query(
-      "SELECT * FROM pizzas WHERE available = 1",
-      (err, rows, fields) => {
+        "SELECT * FROM pizzas WHERE available = 1",
+        (err, rows, fields) => {
 
-        res.json(rows);
-      }
+          res.json(rows);
+        }
     );
   }
 });
@@ -97,11 +97,11 @@ router.delete("/:id", function (req, res) {
     if (err) res.json("unauthorized");
 
     connection.query(
-      `DELETE FROM pizzas WHERE id = ${req.params.id}`,
-      (err, rows, fields) => {
+        `DELETE FROM pizzas WHERE id = ${req.params.id}`,
+        (err, rows, fields) => {
 
-        res.json("deleted");
-      }
+          res.json("deleted");
+        }
     );
   });
 });

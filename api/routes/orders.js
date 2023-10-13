@@ -27,17 +27,17 @@ router.post("/", function (req, res) {
   jwt.verify(token, process.env.JWT_KEY, function (err, decoded) {
     if (err) res.json("unauthorized");
     connection.query(
-      `INSERT INTO orders (user_id, amount, createdAt) VALUES (${req.body.id}, ${req.body.amount}, NOW())`,
-      (err, rows, fields) => {
+        `INSERT INTO orders (user_id, amount, createdAt) VALUES (${req.body.id}, ${req.body.amount}, NOW())`,
+        (err, rows, fields) => {
 
-        const Id_commande = rows.insertId;
+          const Id_commande = rows.insertId;
 
-        for (let pizzaId of req.body.pizzas) {
-          connection.query(
-            `INSERT INTO orders_pizzas (order_id, pizza_id, quantity) VALUES (${Id_commande},${pizzaId},1)`
-          );
+          for (let pizzaId of req.body.pizzas) {
+            connection.query(
+                `INSERT INTO orders_pizzas (order_id, pizza_id, quantity) VALUES (${Id_commande},${pizzaId},1)`
+            );
+          }
         }
-      }
     );
   });
 });
@@ -126,7 +126,7 @@ router.patch("/:id", function (req, res) {
       });
       try {
         let query_PizzasInOrder =
-          "SELECT * FROM orders_pizzas WHERE order_id=" + req.params.id;
+            "SELECT * FROM orders_pizzas WHERE order_id=" + req.params.id;
 
         connection.query(query_PizzasInOrder, (err, rows, fields) => {
           if (err) throw err;
@@ -140,11 +140,11 @@ router.patch("/:id", function (req, res) {
               for (let element of rows) {
 
                 let requete_Mise_A_jour_Stock_Ingredient = `UPDATE ingredients SET stock=${
-                  element.stock - 10
+                    element.stock - 10
                 } WHERE id = ${element.id}`;
                 connection.query(
-                  requete_Mise_A_jour_Stock_Ingredient,
-                  (err, rows, fields) => {}
+                    requete_Mise_A_jour_Stock_Ingredient,
+                    (err, rows, fields) => {}
                 );
               }
             });

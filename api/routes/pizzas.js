@@ -28,7 +28,6 @@ router.post("/", function (req, res) {
     connection.query(
       `INSERT INTO pizzas (name, price, available) VALUES ("${req.body.name}", ${req.body.price}, ${req.body.available})`,
       (err, rows, fields) => {
-        if (err) console.log(err);
 
         res.json("created");
       }
@@ -43,7 +42,6 @@ router.get("/", function (req, res) {
     const query = `SELECT * FROM pizzas WHERE name = "${req.query.name}"`;
 
     connection.query(query, (err, rows, fields) => {
-      if (err) console.log(err);
 
       res.json(rows);
     });
@@ -51,7 +49,6 @@ router.get("/", function (req, res) {
     const query = `SELECT * FROM pizzas WHERE available = ${req.query.available}`;
 
     connection.query(query, (err, rows, fields) => {
-      if (err) console.log(err);
 
       res.json(rows);
     });
@@ -59,7 +56,6 @@ router.get("/", function (req, res) {
     connection.query(
       "SELECT * FROM pizzas WHERE available = 1",
       (err, rows, fields) => {
-        if (err) console.log(err);
 
         res.json(rows);
       }
@@ -77,7 +73,6 @@ router.put("/:id", function (req, res) {
     const query = `UPDATE pizzas SET id = ${req.body.id}, name = "${req.body.name}", price = ${req.body.price}, available = ${req.body.available} WHERE id = ${req.body.id}`;
 
     connection.query(query, (err, rows, fields) => {
-      if (err) console.log(err);
 
       res.json("updated");
     });
@@ -89,7 +84,6 @@ router.get("/:id", function (req, res) {
   const query = `SELECT * FROM pizzas WHERE available = 1 AND id =${req.params.id}`;
 
   connection.query(query, (err, rows, fields) => {
-    if (err) console.log(err);
 
     res.json(rows);
   });
@@ -105,7 +99,6 @@ router.delete("/:id", function (req, res) {
     connection.query(
       `DELETE FROM pizzas WHERE id = ${req.params.id}`,
       (err, rows, fields) => {
-        if (err) console.log(err);
 
         res.json("deleted");
       }

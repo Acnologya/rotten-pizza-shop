@@ -29,7 +29,6 @@ router.post("/signup", (req, res) => {
   connection.query(
     `INSERT INTO users (firstname, lastname, email, role, password) VALUES ("${req.body.firstname}","${req.body.lastname}","${req.body.email}","${req.body.role}","${pwd}")`,
     function (err, rows, fields) {
-      if (err) console.log(err);
 
       let token = jwt.sign({ id: rows.insertId }, process.env.JWT_KEY);
 
@@ -45,7 +44,6 @@ router.post("/signin", (req, res) => {
   connection.query(
     `SELECT * FROM users WHERE email = "${req.body.email}"`,
     function (err, rows, fields) {
-      if (err) console.log(err);
 
       if (pwd == rows[0].password) {
         let token = jwt.sign({ id: rows.insertId }, process.env.JWT_KEY);

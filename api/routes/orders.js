@@ -29,16 +29,12 @@ router.post("/", function (req, res) {
     connection.query(
       `INSERT INTO orders (user_id, amount, createdAt) VALUES (${req.body.id}, ${req.body.amount}, NOW())`,
       (err, rows, fields) => {
-        if (err) console.log(err);
 
         const Id_commande = rows.insertId;
 
         for (let pizzaId of req.body.pizzas) {
           connection.query(
-            `INSERT INTO orders_pizzas (order_id, pizza_id, quantity) VALUES (${Id_commande},${pizzaId},1)`,
-            (err, rows, fields) => {
-              if (err) console.log(err);
-            }
+            `INSERT INTO orders_pizzas (order_id, pizza_id, quantity) VALUES (${Id_commande},${pizzaId},1)`
           );
         }
       }

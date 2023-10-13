@@ -10,10 +10,10 @@ const jwt = require("jsonwebtoken");
 
 const mysql = require("mysql");
 const connection = mysql.createConnection({
-  host: "db",
-  user: "rps",
-  password: "azerty",
-  database: "rps"
+    host: process.env.DB_HOST,
+    user: process.env.MARIADB_USER,
+    password: process.env.MARIADB_DATABASE,
+    database: process.env.DB_DATABASE
 });
 
 connection.connect();

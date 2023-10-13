@@ -4,6 +4,17 @@ Membres de groupes :
 - Kimberley HELBLING
 - Enzo CADET
 
+Résultats SonarCloud :
+Première ouverture du projet :
+Maintenabilité : 18
+Sécurité : 8 vulnérabilités
+Sécu review : 11
+
+Fin :
+Maintenabilité : 6
+Sécurité : 0 vulnérabilités
+Sécu review : 6
+
 ## 🚨🚨🚨 Attention 🚨🚨🚨
 
 Le code présent dans ce projet contient volontairement de nombreuses imperfections :

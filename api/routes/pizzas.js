@@ -39,16 +39,26 @@ router.post("/", function (req, res) {
 router.get("/", function (req, res) {
   //FILTER BY NAME
   if (req.query.name) {
-    const query = `SELECT * FROM pizzas WHERE name = "${req.query.name}"`;
+    const query = 'SELECT * FROM pizzas WHERE name = ?';
+    const pizzaName = req.query.name;
 
-    connection.query(query, (err, rows, fields) => {
+    connection.query(query, [pizzaName], (err, rows, fields) => {
+      if (err) {
+        // Gérer l'erreur, par exemple en renvoyant une réponse d'erreur
+        return res.status(500).json({ error: 'Une erreur s\'est produite lors de l\'exécution de la requête.' });
+      }
 
       res.json(rows);
     });
   } else if (req.query.available) {
-    const query = `SELECT * FROM pizzas WHERE available = ${req.query.available}`;
+    const query = 'SELECT * FROM pizzas WHERE available = ?';
+    const availableStatus = req.query.available;
 
-    connection.query(query, (err, rows, fields) => {
+    connection.query(query, [availableStatus], (err, rows, fields) => {
+      if (err) {
+        // Gérer l'erreur, par exemple en renvoyant une réponse d'erreur
+        return res.status(500).json({ error: 'Une erreur s\'est produite lors de l\'exécution de la requête.' });
+      }
 
       res.json(rows);
     });
@@ -81,9 +91,13 @@ router.put("/:id", function (req, res) {
 
 //READ ONE BY ID
 router.get("/:id", function (req, res) {
-  const query = `SELECT * FROM pizzas WHERE available = 1 AND id =${req.params.id}`;
+  const query = 'SELECT * FROM pizzas WHERE available = ? AND id = ?';
+  const pizzaId = req.params.id;
 
-  connection.query(query, (err, rows, fields) => {
+  connection.query(query, [1, pizzaId], (err, rows, fields) => {
+    if (err) {
+      return res.status(500).json({ error: 'Une erreur s\'est produite lors de l\'exécution de la requête.' });
+    }
 
     res.json(rows);
   });

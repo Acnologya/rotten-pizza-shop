@@ -9,12 +9,12 @@ networks:
 
 services:
   api:
-    image: node
+    image: node:lts-alpine
     container_name: rps-api
     env_file:
       - .env
     working_dir: /usr/src/app
-    command: npm start
+    command: sh -c "npm i && npm start"
     ports:
       - 3000:3000
     volumes:

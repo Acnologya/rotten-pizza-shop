@@ -1,5 +1,9 @@
 # Rotten Pizzas Shop
 
+Membres de groupes :
+- Kimberley HELBLING
+- Enzo CADET
+
 ## 🚨🚨🚨 Attention 🚨🚨🚨
 
 Le code présent dans ce projet contient volontairement de nombreuses imperfections :

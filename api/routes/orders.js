@@ -49,7 +49,6 @@ router.get("/", function (req, res) {
     const query = `SELECT * FROM orders WHERE user_id = "${req.query.user_id}"`;
 
     connection.query(query, (err, rows, fields) => {
-      if (err) console.log(err);
 
       res.json(rows);
     });
@@ -57,13 +56,11 @@ router.get("/", function (req, res) {
     const query = `SELECT * FROM orders WHERE status = ${req.query.status}`;
 
     connection.query(query, (err, rows, fields) => {
-      if (err) console.log(err);
 
       res.json(rows);
     });
   } else {
     connection.query("SELECT * FROM orders", (err, rows, fields) => {
-      if (err) console.log(err);
 
       res.json(rows);
     });
@@ -80,7 +77,6 @@ router.put("/:id", function (req, res) {
     const query = `UPDATE orders SET id = ${req.body.id}, user_id=${req.body.user_id} status = "${req.body.status}", amount = ${req.body.amount}, updatedAt=NOW() WHERE id = ${req.body.id}`;
 
     connection.query(query, (err, rows, fields) => {
-      if (err) console.log(err);
 
       res.json("updated");
     });
@@ -104,7 +100,6 @@ router.patch("/:id", function (req, res) {
       const query2 = `SELECT * FROM orders WHERE id = ${req.params.id}`;
 
       connection.query(query2, (err, rows, fields) => {
-        if (err) console.log(err);
 
         let amount = rows[0].amount;
         let user_id = rows[0].user_id;
@@ -112,7 +107,6 @@ router.patch("/:id", function (req, res) {
         const query3 = `SELECT * FROM users WHERE id = ${user_id}`;
 
         connection.query(query3, (err, rows, fields) => {
-          if (err) console.log(err);
 
           if (amount < 10) {
             let loyaltyPoints = rows[0].loyaltyPoints + 10;
@@ -125,7 +119,6 @@ router.patch("/:id", function (req, res) {
           const query4 = `UPDATE users SET loyaltyPoints=${loyaltyPoints} WHERE id = ${user_id}`;
 
           connection.query(query4, (err, rows, fields) => {
-            if (err) console.log(err);
 
             res.json("updated");
           });
@@ -143,10 +136,8 @@ router.patch("/:id", function (req, res) {
             const queryIngredients = `SELECT * FROM ingredients as ig INNER JOIN pizzas_ingredients as pi ON pi.ingredient_id = ig.id AND pi.pizza_id = ${element.pizza_id};`;
 
             connection.query(queryIngredients, (err, rows, fields) => {
-              if (err) console.log(err);
 
-              for (let index = 0; index < rows.length; index++) {
-                const element = rows[index];
+              for (let element of rows) {
 
                 let requete_Mise_A_jour_Stock_Ingredient = `UPDATE ingredients SET stock=${
                   element.stock - 10
@@ -155,17 +146,14 @@ router.patch("/:id", function (req, res) {
                   requete_Mise_A_jour_Stock_Ingredient,
                   (err, rows, fields) => {}
                 );
-                if (err) console.log(err);
               }
             });
           });
         });
       } catch (error) {
-        console.log(error);
       }
     } else {
       connection.query(query, (err, rows, fields) => {
-        if (err) console.log(err);
 
         res.json("updated");
       });
@@ -178,7 +166,6 @@ router.get("/:id", function (req, res) {
   const query = `SELECT * FROM orders WHERE id =${req.params.id}`;
 
   connection.query(query, (err, rows, fields) => {
-    if (err) console.log(err);
 
     res.json(rows);
   });

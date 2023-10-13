@@ -46,9 +46,14 @@ router.post("/", function (req, res) {
 router.get("/", function (req, res) {
   //FILTER BY USER ID
   if (req.query.user_id) {
-    const query = `SELECT * FROM orders WHERE user_id = "${req.query.user_id}"`;
+    const query = 'SELECT * FROM orders WHERE user_id = ?';
+    const userId = req.query.user_id;
 
-    connection.query(query, (err, rows, fields) => {
+    connection.query(query, [userId], (err, rows, fields) => {
+      if (err) {
+        // Gérer l'erreur, par exemple en renvoyant une réponse d'erreur
+        return res.status(500).json({ error: 'Une erreur s\'est produite lors de l\'exécution de la requête.' });
+      }
 
       res.json(rows);
     });
